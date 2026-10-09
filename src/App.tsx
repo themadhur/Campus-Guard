@@ -166,14 +166,6 @@ function CampusGuardApp() {
               >
                 Admin Portal
               </button>
-              <a
-                href="/campus-guard.zip"
-                download="campus-guard.zip"
-                className="hover:text-blue-600 transition inline-flex items-center gap-1 text-blue-700 bg-blue-50 hover:bg-blue-100 px-2.5 py-1 rounded-lg border border-blue-200 text-xs font-semibold"
-                title="Download full project zip archive"
-              >
-                Download Code (.zip)
-              </a>
             </div>
 
             <div className="text-center sm:text-right text-[11px] text-slate-400">

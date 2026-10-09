@@ -48,19 +48,6 @@ app.get('/api/health', (_req, res) => {
   });
 });
 
-// Zip download endpoint
-app.get(['/api/download-zip', '/campus-guard.zip'], (_req, res) => {
-  const zipPath = path.resolve(__dirname, 'campus-guard.zip');
-  res.download(zipPath, 'campus-guard.zip', (err) => {
-    if (err) {
-      console.error('Download error:', err);
-      if (!res.headersSent) {
-        res.status(500).json({ error: 'Failed to download zip file.' });
-      }
-    }
-  });
-});
-
 // AI issue classification endpoint
 app.post('/api/classify', async (req, res) => {
   const {
