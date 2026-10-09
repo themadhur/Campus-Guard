@@ -1,0 +1,212 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Student or campus staff profile data",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Unique user authentication identifier",
+          "maxLength": 128
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Full name of the student or user",
+          "maxLength": 100
+        },
+        "email": {
+          "type": "string",
+          "description": "Campus or personal email address",
+          "maxLength": 100
+        },
+        "studentId": {
+          "type": "string",
+          "description": "College Roll / Student ID number",
+          "maxLength": 50
+        },
+        "department": {
+          "type": "string",
+          "description": "Student academic branch or department",
+          "maxLength": 100
+        },
+        "role": {
+          "type": "string",
+          "description": "User role in the institution",
+          "enum": ["student", "staff", "admin"]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Registration timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Profile update timestamp"
+        }
+      },
+      "required": ["userId", "displayName", "email", "role"]
+    },
+    "Complaint": {
+      "title": "Complaint",
+      "description": "A campus issue report submitted by a student or staff member",
+      "type": "object",
+      "properties": {
+        "complaintId": {
+          "type": "string",
+          "description": "Human-readable complaint tracking identifier (e.g. CG-2026-XXXXX)",
+          "maxLength": 32,
+          "pattern": "^CG-[0-9]{4}-[A-Z0-9]+$"
+        },
+        "userId": {
+          "type": "string",
+          "description": "ID of the authenticated user who submitted the issue",
+          "maxLength": 128
+        },
+        "issueTitle": {
+          "type": "string",
+          "description": "Short title describing the problem",
+          "maxLength": 150
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed description of the issue",
+          "maxLength": 2000
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL or data reference for the uploaded photo",
+          "maxLength": 1000000
+        },
+        "category": {
+          "type": "string",
+          "description": "Category of the campus issue",
+          "maxLength": 50
+        },
+        "aiCategory": {
+          "type": "string",
+          "description": "AI predicted category",
+          "maxLength": 50
+        },
+        "urgency": {
+          "type": "string",
+          "description": "Urgency / priority level",
+          "enum": ["Low", "Medium", "High", "Critical"]
+        },
+        "department": {
+          "type": "string",
+          "description": "Assigned handling department",
+          "maxLength": 100
+        },
+        "aiReason": {
+          "type": "string",
+          "description": "AI reasoning explanation",
+          "maxLength": 500
+        },
+        "aiConfidence": {
+          "type": "number",
+          "description": "Confidence score 0-100"
+        },
+        "building": {
+          "type": "string",
+          "description": "Campus building name",
+          "maxLength": 100
+        },
+        "floor": {
+          "type": "string",
+          "description": "Floor in the building",
+          "maxLength": 50
+        },
+        "roomArea": {
+          "type": "string",
+          "description": "Specific room or area",
+          "maxLength": 100
+        },
+        "status": {
+          "type": "string",
+          "description": "Current lifecycle status of the complaint",
+          "enum": ["Submitted", "Under Review", "Assigned", "In Progress", "Resolved", "Closed", "Rejected"]
+        },
+        "studentName": {
+          "type": "string",
+          "description": "Name of reporter",
+          "maxLength": 100
+        },
+        "studentEmail": {
+          "type": "string",
+          "description": "Email of reporter",
+          "maxLength": 100
+        },
+        "studentRollNo": {
+          "type": "string",
+          "description": "College Roll Number of reporter",
+          "maxLength": 50
+        },
+        "isDemo": {
+          "type": "boolean",
+          "description": "Whether this is sample demo seed data"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last updated timestamp"
+        }
+      },
+      "required": [
+        "complaintId",
+        "issueTitle",
+        "description",
+        "category",
+        "department",
+        "urgency",
+        "building",
+        "floor",
+        "roomArea",
+        "status"
+      ]
+    },
+    "Admin": {
+      "title": "Admin",
+      "description": "Designated administrator profile",
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "Admin email address",
+          "maxLength": 100
+        },
+        "role": {
+          "type": "string",
+          "description": "Administrative role",
+          "maxLength": 50
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation timestamp"
+        }
+      },
+      "required": ["email", "role"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Registered students and campus staff members"
+    },
+    "/complaints/{complaintDocId}": {
+      "schema": "Complaint",
+      "description": "Collection of all campus incident reports and complaints"
+    },
+    "/admins/{adminId}": {
+      "schema": "Admin",
+      "description": "Registered campus administrators"
+    }
+  }
+}
